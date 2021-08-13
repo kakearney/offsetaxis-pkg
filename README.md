@@ -3,7 +3,7 @@
 
 
 Author: Kelly Kearney
-
+[![View offsetaxis on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/97557-offsetaxis)
 
 This repository includes the code for the `offsetaxis.m` Matlab function, along with all dependent functions required to run it.
 
@@ -32,7 +32,7 @@ This function should be compatible with all versions of Matlab.
 **Downloading and installation**
 
 
-This code can be downloaded from [Github](https://github.com/kakearney/offsetaxis-pkg/) or the &lt;http://www.mathworks.com/matlabcentral/fileexchange/ MatlabCentral File Exchange.  The File Exchange entry is updated daily from the GitHub repository.
+This code can be downloaded from [Github](https://github.com/kakearney/offsetaxis-pkg/) or the [MatlabCentral File Exchange](https://www.mathworks.com/matlabcentral/fileexchange/97557-offsetaxis).  The File Exchange entry is updated daily from the GitHub repository.
 
 
 **Matlab Search Path**
