@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>offsetaxis.m: Offset an x- or y-axis from the plotted axis area</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-08-13"><meta name="DC.source" content="./readmeExtras/README.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><tt>offsetaxis.m</tt>: Offset an x- or y-axis from the plotted axis area</h1><!--introduction--><p>Author: Kelly Kearney</p><p>This repository includes the code for the <tt>offsetaxis.m</tt> Matlab function, along with all dependent functions required to run it.</p><p>The <tt>offsetaxis</tt> function allows one to move the visible axis away from the plotted axis area.  This is often done to allow for multiple axes associated with a single graph, or to simply create a less cluttered appearance along the edges of plotted data.  It achieves this appearance by creating a second, mostly-hidden-except-for-the-axis-line axis that is linked to the original axis.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Getting started</a></li><li><a href="#2">Syntax</a></li><li><a href="#3">Example 1: Axis offset positions</a></li><li><a href="#5">Example 2: More flexible multi-axis plots</a></li></ul></div><h2 id="1">Getting started</h2><p><b>Prerequisites</b></p><p>This function should be compatible with all versions of Matlab.</p><p><b>Downloading and installation</b></p><p>This code can be downloaded from <a href="https://github.com/kakearney/offsetaxis-pkg/">Github</a> or the &lt;http://www.mathworks.com/matlabcentral/fileexchange/ MatlabCentral File Exchange.  The File Exchange entry is updated daily from the GitHub repository.</p><p><b>Matlab Search Path</b></p><p>The following folders need to be added to your Matlab Search path (via <tt>addpath</tt>, <tt>pathtool</tt>, etc.):</p><pre class="language-matlab">offsetaxis-pkg/offsetaxis
+</pre><h2 id="2">Syntax</h2><p><tt>offsetaxis(ax)</tt> adds an offset y-axis to the axis or axes indicated by the handle(s) <tt>ax</tt>, displaced 0.1 axis-width units from the original axis.</p><p><tt>offsetaxis(ax, ..., 'y', yoffset)</tt> adds an offset y-axis to the axis indicated by the handle <tt>ax</tt>, displaced by a custom distance <tt>yoffset</tt> that is defined as a fraction of the axis width.  Default is 0.1 if no x-offset is specified, and 0 otherwise.</p><p><tt>offsetaxis(ax, ..., 'x', xoffset)</tt> adds an offset x-axis to the axis indicated by the handle <tt>ax</tt>, displaced by a custom distance <tt>xoffset</tt> that is defined as a fraction of the axis height. Default is 0.</p><p><tt>offsetaxis(ax, ..., 'yloc', yloc)</tt> indicates where the offset y-axis should be placed ('l' = left, 'r' = right, 'lr' = both).  Default is 'l'.</p><p><tt>offsetaxis(ax, ..., 'xloc', yloc)</tt> indicates where the offset x-axis should be placed ('t' = top, 'b' = bottom, 'tb' = both).  Default is 'b'.</p><p><tt>hy = offsetaxis(...)</tt> returns the handles to the newly-created axis objects used to display offset y-axes.  <tt>hy</tt> will be the same dimensions as <tt>ax</tt>, and is only returned if a y-offset is specified by input.</p><p><tt>hx = offsetaxis(...)</tt> returns the handles to the newly-created axis objects used to display offset x-axes.  <tt>hx</tt> will be the same dimensions as <tt>ax</tt>, and is only returned if a x-offset is specified by input.</p><h2 id="3">Example 1: Axis offset positions</h2><p>The following example demonstrates the default location of an offset y-axis.</p><pre class="codeinput">x = 0:0.01:20;
+y1 = 200*exp(-0.05*x).*sin(x);
+
+figure;
+ax = axes;
+hold <span class="string">on</span>;
+plot(x, y1);
+offsetaxis(ax); <span class="comment">% Default, y-offset = 0.1 and yloc = 'l'</span>
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_01.png" alt=""> <p>Offset axes can also be added in any direction.</p><pre class="codeinput">figure;
+ax = axes;
+plot(x, y1);
+offsetaxis(ax, <span class="string">'y'</span>, 0.05, <span class="string">'x'</span>, 0.05, <span class="string">'yloc'</span>, <span class="string">'lr'</span>, <span class="string">'xloc'</span>, <span class="string">'tb'</span>);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_02.png" alt=""> <h2 id="5">Example 2: More flexible multi-axis plots</h2><p>Matlab includes a few helper functions to allow plotting of data on different scales on the same axes.  These functions include <tt>plotyy</tt> in older versions, and <tt>yyaxis</tt> in newer versions.  There are also numerous File Exchange entries designed to extend these functions to more data types, more axes, and to the x-axis (plotyyy, plots, etc.).  These functions rely on the same underlying concept as <tt>offsetaxis</tt> (i.e. creating extra axes).  However, the lower-level control offered by offset axis to control all aspects of this type of plot allows you to manually build more complex multi-axis plots.</p><p>In this example, we demonstrate some of the concepts needed to create this sort of plot.  We'll use the same data as the <tt>plotyy</tt> documentation:</p><pre class="codeinput">x = 0:0.01:20;
+y1 = 200*exp(-0.05*x).*sin(x);
+y2 = 0.8*exp(-0.5*x).*sin(10*x);
+
+figure <span class="comment">% new figure</span>
+plotyy(x,y1,x,y2);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_03.png" alt=""> <p>The first step to creating our new figure is to create two axes on top of each other.  We then add one line to each plot.  Note that we need to manually remove the color from the top axis to make sure we can see through to the bottom one (and set the hold state, since a call to plot or other high-level plotting functions will reset this if the hold state is off).</p><pre class="codeinput">figure;
+
+<span class="comment">% Create two axes on top of each other</span>
+
+ax1 = axes;
+ax2 = axes(<span class="string">'position'</span>, ax1.Position, <span class="string">'color'</span>, <span class="string">'none'</span>);
+hold(ax2, <span class="string">'on'</span>);
+
+<span class="comment">% Plot data to their respective axes:</span>
+
+ln1 = plot(ax1, x, y1);
+ln2 = plot(ax2, x, y2, <span class="string">'r'</span>);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_04.png" alt=""> <p>Next, we add the offset axis.  It's also common to want to match the color of the axes to the plotted data, though this may vary for your particular needs.</p><pre class="codeinput">hy = offsetaxis(ax2, <span class="string">'y'</span>, 0.1);
+set(hy, <span class="string">'YColor'</span>, ln2.Color);
+set(ax1, <span class="string">'YColor'</span>, ln1.Color);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_05.png" alt=""> <p>As you can see, this method involves more work than a simple call to <tt>plotyy</tt> or <tt>yyaxis</tt> or any of the all-in-one File Exchange functions, but in exchange, you can gain more flexibility over the number of and location of additional axes.  You can add as many axes as needed in either the x- or y-directions!</p><pre class="codeinput">figure;
+ax = axes(<span class="string">'position'</span>, [0.2 0.2 0.6 0.6]);
+offsetaxis(ax, <span class="string">'y'</span>, 0.01);
+offsetaxis(ax, <span class="string">'y'</span>, 0.1);
+offsetaxis(ax, <span class="string">'y'</span>, 0.2);
+offsetaxis(ax, <span class="string">'y'</span>, 0.1, <span class="string">'yloc'</span>, <span class="string">'r'</span>);
+offsetaxis(ax, <span class="string">'x'</span>, 0.1);
+offsetaxis(ax, <span class="string">'x'</span>, 0.2);
+offsetaxis(ax, <span class="string">'x'</span>, 0.1, <span class="string">'xloc'</span>, <span class="string">'t'</span>);
+set(ax, <span class="string">'box'</span>, <span class="string">'on'</span>);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% |offsetaxis.m|: Offset an x- or y-axis from the plotted axis area
+% Author: Kelly Kearney
+%
+% This repository includes the code for the |offsetaxis.m| Matlab function,
+% along with all dependent functions required to run it.
+%
+% The |offsetaxis| function allows one to move the visible axis away from
+% the plotted axis area.  This is often done to allow for multiple axes
+% associated with a single graph, or to simply create a less cluttered
+% appearance along the edges of plotted data.  It achieves this appearance 
+% by creating a second, mostly-hidden-except-for-the-axis-line axis that is
+% linked to the original axis. 
+%
+%% Getting started
+%
+% *Prerequisites*
+%
+% This function should be compatible with all versions of Matlab.
+%
+% *Downloading and installation*
+%
+% This code can be downloaded from <https://github.com/kakearney/offsetaxis-pkg/ Github>
+% or the
+% <http://www.mathworks.com/matlabcentral/fileexchange/
+% MatlabCentral File Exchange.  The File Exchange entry is updated daily
+% from the GitHub repository.   
+%
+% *Matlab Search Path*
+%
+% The following folders need to be added to your Matlab Search path (via
+% |addpath|, |pathtool|, etc.):
+%
+%   offsetaxis-pkg/offsetaxis
+%
+%% Syntax
+%
+% |offsetaxis(ax)| adds an offset y-axis to the axis or axes indicated by
+% the handle(s) |ax|, displaced 0.1 axis-width units from the original axis.
+%
+% |offsetaxis(ax, ..., 'y', yoffset)| adds an offset y-axis to the axis 
+% indicated by the handle |ax|, displaced by a custom distance |yoffset| 
+% that is defined as a fraction of the axis width.  Default is 0.1 if no
+% x-offset is specified, and 0 otherwise.
+%
+% |offsetaxis(ax, ..., 'x', xoffset)| adds an offset x-axis to the axis 
+% indicated by the handle |ax|, displaced by a custom distance |xoffset| 
+% that is defined as a fraction of the axis height. Default is 0.
+%
+% |offsetaxis(ax, ..., 'yloc', yloc)| indicates where the offset y-axis
+% should be placed ('l' = left, 'r' = right, 'lr' = both).  Default is 'l'.
+%
+% |offsetaxis(ax, ..., 'xloc', yloc)| indicates where the offset x-axis
+% should be placed ('t' = top, 'b' = bottom, 'tb' = both).  Default is 'b'.
+%
+% |hy = offsetaxis(...)| returns the handles to the newly-created axis
+% objects used to display offset y-axes.  |hy| will be the same dimensions
+% as |ax|, and is only returned if a y-offset is specified by input.
+%
+% |hx = offsetaxis(...)| returns the handles to the newly-created axis
+% objects used to display offset x-axes.  |hx| will be the same dimensions
+% as |ax|, and is only returned if a x-offset is specified by input.
+%
+%% Example 1: Axis offset positions
+%
+% The following example demonstrates the default location of an offset
+% y-axis. 
+
+x = 0:0.01:20;
+y1 = 200*exp(-0.05*x).*sin(x);
+
+figure;
+ax = axes;
+hold on;
+plot(x, y1);
+offsetaxis(ax); % Default, y-offset = 0.1 and yloc = 'l'
+
+%%
+%
+% Offset axes can also be added in any direction.
+
+figure;
+ax = axes;
+plot(x, y1);
+offsetaxis(ax, 'y', 0.05, 'x', 0.05, 'yloc', 'lr', 'xloc', 'tb'); 
+
+%% Example 2: More flexible multi-axis plots
+%
+% Matlab includes a few helper functions to allow plotting of data on
+% different scales on the same axes.  These functions include |plotyy| in
+% older versions, and |yyaxis| in newer versions.  There are also numerous
+% File Exchange entries designed to extend these functions to more data
+% types, more axes, and to the x-axis (plotyyy, plots, etc.).  These
+% functions rely on the same underlying concept as |offsetaxis| (i.e.
+% creating extra axes).  However, the lower-level control offered by
+% offset axis to control all aspects of this type of plot allows you to
+% manually build more complex multi-axis plots.
+%
+% In this example, we demonstrate some of the concepts needed to create 
+% this sort of plot.  We'll use the same data as the |plotyy|
+% documentation: 
+
+x = 0:0.01:20;
+y1 = 200*exp(-0.05*x).*sin(x);
+y2 = 0.8*exp(-0.5*x).*sin(10*x);
+
+figure % new figure
+plotyy(x,y1,x,y2);
+
+%%
+% The first step to creating our new figure is to create two axes on top of
+% each other.  We then add one line to each plot.  Note that we need to
+% manually remove the color from the top axis to make sure we can see
+% through to the bottom one (and set the hold state, since a call to plot
+% or other high-level plotting functions will reset this if the hold state
+% is off). 
+
+figure;
+
+% Create two axes on top of each other
+
+ax1 = axes;
+ax2 = axes('position', ax1.Position, 'color', 'none');
+hold(ax2, 'on');
+
+% Plot data to their respective axes:
+
+ln1 = plot(ax1, x, y1);
+ln2 = plot(ax2, x, y2, 'r');
+
+%%
+% Next, we add the offset axis.  It's also common to want to match the
+% color of the axes to the plotted data, though this may vary for your
+% particular needs.
+
+hy = offsetaxis(ax2, 'y', 0.1);
+set(hy, 'YColor', ln2.Color); 
+set(ax1, 'YColor', ln1.Color);
+
+%% 
+% As you can see, this method involves more work than a simple call to
+% |plotyy| or |yyaxis| or any of the all-in-one File Exchange functions,
+% but in exchange, you can gain more flexibility over the number of and
+% location of additional axes.  You can add as many axes as needed in
+% either the x- or y-directions!
+
+figure;
+ax = axes('position', [0.2 0.2 0.6 0.6]);
+offsetaxis(ax, 'y', 0.01);
+offsetaxis(ax, 'y', 0.1);
+offsetaxis(ax, 'y', 0.2);
+offsetaxis(ax, 'y', 0.1, 'yloc', 'r');
+offsetaxis(ax, 'x', 0.1);
+offsetaxis(ax, 'x', 0.2);
+offsetaxis(ax, 'x', 0.1, 'xloc', 't');
+set(ax, 'box', 'on');
+
+
+
+    
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
